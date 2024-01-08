@@ -44,7 +44,7 @@ export default function MarketingPage () {
         Collaborate, manage projects, and reach new productivity peaks. From high rises to the home office, the way your team works is unique - accomplish it all with Task-PR.
       </div>
       <Button size='lg' asChild>
-        <Link href='/sing-up'>
+        <Link href='/sign-up'>
             Get Task-PR for free!
         </Link>
       </Button>
