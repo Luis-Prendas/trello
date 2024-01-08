@@ -29,7 +29,7 @@ export default function MarketingPage () {
   return (
     <div className="flex items-center justify-center flex-col gap-4 md:gap-6">
       <div className={cn('flex items-center justify-center flex-col gap-4 md:gap-6', headingFont.className)}>
-        <div className='flex gap-2 p-4 items-center border shadow-sm bg-sky-200 text-sky-600 rounded-full uppercase'>
+        <div className='flex gap-2 px-4 pb-3 pt-4 items-center border shadow-sm bg-sky-200 text-sky-600 rounded-full uppercase'>
           <Medal className='h-6 w-6' />
           <span>Top Task Managment</span>
         </div>
