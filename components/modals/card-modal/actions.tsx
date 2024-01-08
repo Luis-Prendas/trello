@@ -1,71 +1,71 @@
-"use client";
+'use client'
 
-import { toast } from "sonner";
-import { Copy, Trash } from "lucide-react";
-import { useParams } from "next/navigation";
+import { toast } from 'sonner'
+import { Copy, Trash } from 'lucide-react'
+import { useParams } from 'next/navigation'
 
-import { CardWithList } from "@/types";
-import { useAction } from "@/hooks/use-action";
-import { copyCard } from "@/actions/copy-card";
-import { Button } from "@/components/ui/button";
-import { deleteCard } from "@/actions/delete-card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useCardModal } from "@/hooks/use-card-modal";
+import { type CardWithList } from '@/types'
+import { useAction } from '@/hooks/use-action'
+import { copyCard } from '@/actions/copy-card'
+import { Button } from '@/components/ui/button'
+import { deleteCard } from '@/actions/delete-card'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useCardModal } from '@/hooks/use-card-modal'
 
 interface ActionsProps {
-  data: CardWithList;
+  data: CardWithList
 };
 
 export const Actions = ({
-  data,
+  data
 }: ActionsProps) => {
-  const params = useParams();
-  const cardModal = useCardModal();
+  const params = useParams()
+  const cardModal = useCardModal()
 
-  const { 
+  const {
     execute: executeCopyCard,
-    isLoading: isLoadingCopy,
+    isLoading: isLoadingCopy
   } = useAction(copyCard, {
     onSuccess: (data) => {
-      toast.success(`Card "${data.title}" copied`);
-      cardModal.onClose();
+      toast.success(`Card "${data.title}" copied`)
+      cardModal.onClose()
     },
     onError: (error) => {
-      toast.error(error);
-    },
-  });
+      toast.error(error)
+    }
+  })
 
-  const { 
+  const {
     execute: executeDeleteCard,
-    isLoading: isLoadingDelete,
+    isLoading: isLoadingDelete
   } = useAction(deleteCard, {
     onSuccess: (data) => {
-      toast.success(`Card "${data.title}" deleted`);
-      cardModal.onClose();
+      toast.success(`Card "${data.title}" deleted`)
+      cardModal.onClose()
     },
     onError: (error) => {
-      toast.error(error);
-    },
-  });
+      toast.error(error)
+    }
+  })
 
   const onCopy = () => {
-    const boardId = params.boardId as string;
+    const boardId = params.boardId as string
 
     executeCopyCard({
       id: data.id,
-      boardId,
-    });
-  };
+      boardId
+    })
+  }
 
   const onDelete = () => {
-    const boardId = params.boardId as string;
+    const boardId = params.boardId as string
 
     executeDeleteCard({
       id: data.id,
-      boardId,
-    });
-  };
-  
+      boardId
+    })
+  }
+
   return (
     <div className="space-y-2 mt-2">
       <p className="text-xs font-semibold">
@@ -92,15 +92,15 @@ export const Actions = ({
         Delete
       </Button>
     </div>
-  );
-};
+  )
+}
 
-Actions.Skeleton = function ActionsSkeleton() {
+Actions.Skeleton = function ActionsSkeleton () {
   return (
     <div className="space-y-2 mt-2">
       <Skeleton className="w-20 h-4 bg-neutral-200" />
       <Skeleton className="w-full h-8 bg-neutral-200" />
       <Skeleton className="w-full h-8 bg-neutral-200" />
     </div>
-  );
-};
+  )
+}
