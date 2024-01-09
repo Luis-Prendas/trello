@@ -1,66 +1,66 @@
-"use client";
+'use client'
 
-import { toast } from "sonner";
-import { ElementRef, useRef, useState } from "react";
-import { Layout } from "lucide-react";
-import { useParams } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
+import { toast } from 'sonner'
+import { type ElementRef, useRef, useState } from 'react'
+import { Layout } from 'lucide-react'
+import { useParams } from 'next/navigation'
+import { useQueryClient } from '@tanstack/react-query'
 
-import { CardWithList } from "@/types";
-import { useAction } from "@/hooks/use-action";
-import { updateCard } from "@/actions/update-card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { FormInput } from "@/components/form/form-input";
+import { type CardWithList } from '@/types'
+import { useAction } from '@/hooks/use-action'
+import { updateCard } from '@/actions/update-card'
+import { Skeleton } from '@/components/ui/skeleton'
+import { FormInput } from '@/components/form/form-input'
 
 interface HeaderProps {
-  data: CardWithList;
+  data: CardWithList
 }
 
 export const Header = ({
-  data,
+  data
 }: HeaderProps) => {
-  const queryClient = useQueryClient();
-  const params = useParams();
+  const queryClient = useQueryClient()
+  const params = useParams()
 
   const { execute } = useAction(updateCard, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ["card", data.id]
-      });
+        queryKey: ['card', data.id]
+      })
 
       queryClient.invalidateQueries({
-        queryKey: ["card-logs", data.id]
-      });
+        queryKey: ['card-logs', data.id]
+      })
 
-      toast.success(`Renamed to "${data.title}"`);
-      setTitle(data.title);
+      toast.success(`Renamed to "${data.title}"`)
+      setTitle(data.title)
     },
     onError: (error) => {
-      toast.error(error);
+      toast.error(error)
     }
-  });
+  })
 
-  const inputRef = useRef<ElementRef<"input">>(null);
+  const inputRef = useRef<ElementRef<'input'>>(null)
 
-  const [title, setTitle] = useState(data.title);
+  const [title, setTitle] = useState(data.title)
 
   const onBlur = () => {
-    inputRef.current?.form?.requestSubmit();
-  };
+    inputRef.current?.form?.requestSubmit()
+  }
 
   const onSubmit = (formData: FormData) => {
-    const title = formData.get("title") as string;
-    const boardId = params.boardId as string;
+    const title = formData.get('title') as string
+    const boardId = params.boardId as string
 
     if (title === data.title) {
-      return;
+      return
     }
 
     execute({
       title,
       boardId,
-      id: data.id,
-    });
+      id: data.id
+    })
   }
 
   return (
@@ -81,10 +81,10 @@ export const Header = ({
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-Header.Skeleton = function HeaderSkeleton() {
+Header.Skeleton = function HeaderSkeleton () {
   return (
     <div className="flex items-start gap-x-3 mb-6">
       <Skeleton className="h-6 w-6 mt-1 bg-neutral-200" />
@@ -93,5 +93,5 @@ Header.Skeleton = function HeaderSkeleton() {
         <Skeleton className="w-12 h-4 bg-neutral-200" />
       </div>
     </div>
-  );
-};
+  )
+}

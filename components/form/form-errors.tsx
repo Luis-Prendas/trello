@@ -1,8 +1,8 @@
-import { XCircle } from "lucide-react";
+import { XCircle } from 'lucide-react'
 
 interface FormErrorsProps {
-  id: string;
-  errors?: Record<string, string[] | undefined>;
+  id: string
+  errors?: Record<string, string[] | undefined>
 };
 
 export const FormErrors = ({
@@ -10,9 +10,9 @@ export const FormErrors = ({
   errors
 }: FormErrorsProps) => {
   if (!errors) {
-    return null;
+    return null
   }
-  
+
   return (
     <div
       id={`${id}-error`}
@@ -20,7 +20,7 @@ export const FormErrors = ({
       className="mt-2 text-xs text-rose-500"
     >
       {errors?.[id]?.map((error: string) => (
-        <div 
+        <div
           key={error}
           className="flex items-center font-medium p-2 border border-rose-500 bg-rose-500/10 rounded-sm"
         >
@@ -29,5 +29,5 @@ export const FormErrors = ({
         </div>
       ))}
     </div>
-  );
-};
+  )
+}

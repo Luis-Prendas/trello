@@ -1,8 +1,8 @@
-import { z } from "zod";
+import { type z } from 'zod'
 
-import { ActionState } from "@/lib/create-safe-action";
+import { type ActionState } from '@/lib/create-safe-action'
 
-import { StripeRedirect } from "./schema";
+import { type StripeRedirect } from './schema'
 
-export type InputType = z.infer<typeof StripeRedirect>;
-export type ReturnType = ActionState<InputType, string>;
+export type InputType = z.infer<typeof StripeRedirect>
+export type ReturnType = ActionState<InputType, string>

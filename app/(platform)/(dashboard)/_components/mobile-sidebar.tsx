@@ -1,33 +1,33 @@
-"use client";
+'use client'
 
-import { Menu } from "lucide-react";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { Menu } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
-import { useMobileSidebar } from "@/hooks/use-mobile-sidebar";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { useMobileSidebar } from '@/hooks/use-mobile-sidebar'
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent } from '@/components/ui/sheet'
 
-import { Sidebar } from "./sidebar";
+import { Sidebar } from './sidebar'
 
 export const MobileSidebar = () => {
-  const pathname = usePathname();
-  const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname()
+  const [isMounted, setIsMounted] = useState(false)
 
-  const onOpen = useMobileSidebar((state) => state.onOpen);
-  const onClose = useMobileSidebar((state) => state.onClose);
-  const isOpen = useMobileSidebar((state) => state.isOpen);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const onOpen = useMobileSidebar((state) => state.onOpen)
+  const onClose = useMobileSidebar((state) => state.onClose)
+  const isOpen = useMobileSidebar((state) => state.isOpen)
 
   useEffect(() => {
-    onClose();
-  }, [pathname, onClose]);
+    setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    onClose()
+  }, [pathname, onClose])
 
   if (!isMounted) {
-    return null;
+    return null
   }
 
   return (

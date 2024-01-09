@@ -1,17 +1,17 @@
-"use client";
+'use client'
 
-import { AuditLog } from "@prisma/client";
-import { ActivityIcon } from "lucide-react";
+import { type AuditLog } from '@prisma/client'
+import { ActivityIcon } from 'lucide-react'
 
-import { Skeleton } from "@/components/ui/skeleton";
-import { ActivityItem } from "@/components/activity-item";
+import { Skeleton } from '@/components/ui/skeleton'
+import { ActivityItem } from '@/components/activity-item'
 
 interface ActivityProps {
-  items: AuditLog[];
+  items: AuditLog[]
 };
 
 export const Activity = ({
-  items,
+  items
 }: ActivityProps) => {
   return (
     <div className="flex items-start gap-x-3 w-full">
@@ -30,10 +30,10 @@ export const Activity = ({
         </ol>
       </div>
     </div>
-  );
-};
+  )
+}
 
-Activity.Skeleton = function ActivitySkeleton() {
+Activity.Skeleton = function ActivitySkeleton () {
   return (
     <div className="flex items-start gap-x-3 w-full">
       <Skeleton className="h-6 w-6 bg-neutral-200" />
@@ -42,5 +42,5 @@ Activity.Skeleton = function ActivitySkeleton() {
         <Skeleton className="w-full h-10 bg-neutral-200" />
       </div>
     </div>
-  );
-};
+  )
+}

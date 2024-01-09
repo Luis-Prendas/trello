@@ -1,27 +1,27 @@
-"use server";
+'use server'
 
-import { auth } from "@clerk/nextjs";
-import { revalidatePath } from "next/cache";
+import { auth } from '@clerk/nextjs'
+import { revalidatePath } from 'next/cache'
 
-import { db } from "@/lib/db";
-import { createSafeAction } from "@/lib/create-safe-action";
+import { db } from '@/lib/db'
+import { createSafeAction } from '@/lib/create-safe-action'
 
-import { UpdateCard } from "./schema";
-import { InputType, ReturnType } from "./types";
-import { createAuditLog } from "@/lib/create-audit-log";
-import { ACTION, ENTITY_TYPE } from "@prisma/client";
+import { UpdateCard } from './schema'
+import { type InputType, type ReturnType } from './types'
+import { createAuditLog } from '@/lib/create-audit-log'
+import { ACTION, ENTITY_TYPE } from '@prisma/client'
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { userId, orgId } = auth();
+  const { userId, orgId } = auth()
 
   if (!userId || !orgId) {
     return {
-      error: "Unauthorized",
-    };
+      error: 'Unauthorized'
+    }
   }
 
-  const { id, boardId, ...values } = data;
-  let card;
+  const { id, boardId, ...values } = data
+  let card
 
   try {
     card = await db.card.update({
@@ -29,29 +29,29 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         id,
         list: {
           board: {
-            orgId,
-          },
-        },
+            orgId
+          }
+        }
       },
       data: {
-        ...values,
-      },
-    });
+        ...values
+      }
+    })
 
     await createAuditLog({
       entityTitle: card.title,
       entityId: card.id,
       entityType: ENTITY_TYPE.CARD,
-      action: ACTION.UPDATE,
+      action: ACTION.UPDATE
     })
   } catch (error) {
     return {
-      error: "Failed to update."
+      error: 'Failed to update.'
     }
   }
 
-  revalidatePath(`/board/${boardId}`);
-  return { data: card };
-};
+  revalidatePath(`/board/${boardId}`)
+  return { data: card }
+}
 
-export const updateCard = createSafeAction(UpdateCard, handler);
+export const updateCard = createSafeAction(UpdateCard, handler)

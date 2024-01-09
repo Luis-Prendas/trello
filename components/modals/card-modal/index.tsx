@@ -1,32 +1,32 @@
-"use client";
+'use client'
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query'
 
-import { CardWithList } from "@/types";
-import { fetcher } from "@/lib/fetcher";
-import { AuditLog } from "@prisma/client";
-import { useCardModal } from "@/hooks/use-card-modal";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { type CardWithList } from '@/types'
+import { fetcher } from '@/lib/fetcher'
+import { type AuditLog } from '@prisma/client'
+import { useCardModal } from '@/hooks/use-card-modal'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 
-import { Header } from "./header";
-import { Description } from "./description";
-import { Actions } from "./actions";
-import { Activity } from "./activity";
+import { Header } from './header'
+import { Description } from './description'
+import { Actions } from './actions'
+import { Activity } from './activity'
 
 export const CardModal = () => {
-  const id = useCardModal((state) => state.id);
-  const isOpen = useCardModal((state) => state.isOpen);
-  const onClose = useCardModal((state) => state.onClose);
+  const id = useCardModal((state) => state.id)
+  const isOpen = useCardModal((state) => state.isOpen)
+  const onClose = useCardModal((state) => state.onClose)
 
   const { data: cardData } = useQuery<CardWithList>({
-    queryKey: ["card", id],
-    queryFn: () => fetcher(`/api/cards/${id}`),
-  });
+    queryKey: ['card', id],
+    queryFn: async () => await fetcher(`/api/cards/${id}`)
+  })
 
   const { data: auditLogsData } = useQuery<AuditLog[]>({
-    queryKey: ["card-logs", id],
-    queryFn: () => fetcher(`/api/cards/${id}/logs`),
-  });
+    queryKey: ['card-logs', id],
+    queryFn: async () => await fetcher(`/api/cards/${id}/logs`)
+  })
 
   return (
     <Dialog
@@ -58,5 +58,5 @@ export const CardModal = () => {
         </div>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

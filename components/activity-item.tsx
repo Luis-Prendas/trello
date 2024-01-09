@@ -1,15 +1,15 @@
-import { format } from "date-fns";
-import { AuditLog } from "@prisma/client"
+import { format } from 'date-fns'
+import { type AuditLog } from '@prisma/client'
 
-import { generateLogMessage } from "@/lib/generate-log-message";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { generateLogMessage } from '@/lib/generate-log-message'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 
 interface ActivityItemProps {
-  data: AuditLog;
+  data: AuditLog
 };
 
 export const ActivityItem = ({
-  data,
+  data
 }: ActivityItemProps) => {
   return (
     <li className="flex items-center gap-x-2">
@@ -27,5 +27,5 @@ export const ActivityItem = ({
         </p>
       </div>
     </li>
-  );
-};
+  )
+}
