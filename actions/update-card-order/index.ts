@@ -23,7 +23,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
   try {
     const transaction = items.map(async (card) =>
-      await db.card.update({
+      db.card.update({
         where: {
           id: card.id,
           list: {
@@ -39,7 +39,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       })
     )
 
-    // @ts-expect-error
     updatedCards = await db.$transaction(transaction)
   } catch (error) {
     return {
