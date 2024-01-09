@@ -10,6 +10,7 @@ import { FormPopover } from '@/components/form/form-popover'
 import { MAX_FREE_BOARDS } from '@/constants/boards'
 import { getAvailableCount } from '@/lib/org-limit'
 import { checkSubscription } from '@/lib/subscription'
+import { type Key, type ReactElement, type JSXElementConstructor, type ReactNode, type ReactPortal, type PromiseLikeOfReactNode } from 'react'
 
 export const BoardList = async () => {
   const { orgId } = auth()
@@ -37,7 +38,7 @@ export const BoardList = async () => {
         Your boards
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {boards.map((board) => (
+        {boards.map((board: { id: Key | null | undefined, imageThumbUrl: any, title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined }) => (
           <Link
             key={board.id}
             href={`/board/${board.id}`}
